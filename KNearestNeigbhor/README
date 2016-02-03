@@ -13,19 +13,18 @@ Usage:
 
 APPROACH:
   My first step was to read the csv data for test and training using pandas and transform all records into
-  "Fruit" objects.  From here I began writing a function to take two "Fruit" objects and compute the distance between
-  them.  Once the distance function was complete I wrote a function to take a "Fruit" object, a list of its
-  neighbors, and the 'k' value and get the closest k objects to the fruit object that was passed in.  I then wrote a
+  "KNNReadable" objects.  From here I began writing a function to take two measurement lists and compute the distance
+  between them.  Once the distance function was complete I wrote a function to take a "KNNReadable" object, a list of its
+  neighbors, and the 'k' value and get the closest k objects to the object that was passed in.  I then wrote a
   function to get the most common class in the closest k neighbors and use this as the guess for the class of the
-  test fruit.  Once I had functionality to classify the test fruit I began computing the percent correct.  It was
-  getting a rather low percent correct at this point so I wrote a function to take a list of "Fruit" objects
+  test object.  Once I had functionality to classify the test object I began computing the percent correct.  It was
+  getting a rather low percent correct at this point so I wrote a function to take a list of "KNNReadable" objects
   and normalize the data contained in them.  This vastly improved the accuracy of the estimator but there was still room
   for improvement.  I considered the case of ties between two classes in the closest k neighbors.  I changed the
   estimator so that if there is a tie, it will take the class of the closest among the objects in the tied classes and
-  use that as the guess.  I attained the highest accuracy through this method.  I wrote a method to take
-  a weighted vote from a list of "Fruit" objects for the case where "0" is applied as an Argument to the
-  algorithm.  I also tried using this weighted vote function among the k closest neighbors but this had a
-  slightly lower accuracy than taking the closest object among 'tied' classes.
+  use that as the guess.  I then wrote a method to take a weighted vote from a list of "KNNReadable" objects
+  for the case where "0" is applied as an Argument to the algorithm.  I also tried using this weighted vote
+  function among the k closest neighbors and this ended up having the highest accuracy.
 
 POSSIBLE IMPROVEMENTS:
   The accuracy obtained with this algorithm could potentially benefit from outlier removal in the training data.
