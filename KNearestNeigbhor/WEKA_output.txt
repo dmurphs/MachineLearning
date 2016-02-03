@@ -1,0 +1,49 @@
+=== Run information ===
+
+Scheme:weka.classifiers.lazy.IBk -K 1 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     fruit
+Instances:    1000
+Attributes:   5
+              Redness
+              Yellowness
+              Mass
+              Volume
+              Class
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 1 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         964               96.4    %
+Incorrectly Classified Instances        36                3.6    %
+Kappa statistic                          0.9519
+Mean absolute error                      0.0196
+Root mean squared error                  0.1339
+Relative absolute error                  5.2295 %
+Root relative squared error             30.9428 %
+Total Number of Instances             1000
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.987     0.005      0.983     0.987     0.985      0.991    apple
+                 0.936     0.022      0.928     0.936     0.932      0.957    peach
+                 0.928     0.015      0.955     0.928     0.941      0.957    orange
+                 1         0.006      0.986     1         0.993      0.997    lemon
+Weighted Avg.    0.964     0.012      0.964     0.964     0.964      0.976
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 236   3   0   0 |   a = apple
+   4 218  11   0 |   b = peach
+   0  14 232   4 |   c = orange
+   0   0   0 278 |   d = lemon

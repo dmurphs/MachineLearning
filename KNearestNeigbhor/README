@@ -1,0 +1,42 @@
+Daniel Murphy
+Spring 2016
+K Nearest Neighbor Implementation
+I am a Grad Student in the Math Department
+
+Usage:
+  This algorithm is implemented using python 2.7.10
+  Type 'python PythonScripts/kNearestNeighbor.py -h' from this directory for information about command line arguments.
+  To install requirements using pip run "pip install -r requirements.txt" from this directory.
+
+  Example for k=1:
+    'python PythonScripts/kNearestNeighbor.py 1'
+
+APPROACH:
+  My first step was to read the csv data for test and training using pandas and transform all records into
+  "Fruit" objects.  From here I began writing a function to take two "Fruit" objects and compute the distance between
+  them.  Once the distance function was complete I wrote a function to take a "Fruit" object, a list of its
+  neighbors, and the 'k' value and get the closest k objects to the fruit object that was passed in.  I then wrote a
+  function to get the most common class in the closest k neighbors and use this as the guess for the class of the
+  test fruit.  Once I had functionality to classify the test fruit I began computing the percent correct.  It was
+  getting a rather low percent correct at this point so I wrote a function to take a list of "Fruit" objects
+  and normalize the data contained in them.  This vastly improved the accuracy of the estimator but there was still room
+  for improvement.  I considered the case of ties between two classes in the closest k neighbors.  I changed the
+  estimator so that if there is a tie, it will take the class of the closest among the objects in the tied classes and
+  use that as the guess.  I attained the highest accuracy through this method.  I wrote a method to take
+  a weighted vote from a list of "Fruit" objects for the case where "0" is applied as an Argument to the
+  algorithm.  I also tried using this weighted vote function among the k closest neighbors but this had a
+  slightly lower accuracy than taking the closest object among 'tied' classes.
+
+POSSIBLE IMPROVEMENTS:
+  The accuracy obtained with this algorithm could potentially benefit from outlier removal in the training data.
+  It also may benefit from a more sophisticated measurement of distance such as giving weight to measurements
+  from certain fields (i.e give more weight to a difference in redness).
+
+ACCURACY:
+  k=0: 98%
+  k=1: 94%
+  k=5: 96%
+  k=10: 98%
+  k=20: 98%
+  k=50: 98%
+  k=100: 99%
