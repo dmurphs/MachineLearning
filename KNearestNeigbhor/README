@@ -1,7 +1,8 @@
 Daniel Murphy
 Spring 2016
+CSCI 547
 K Nearest Neighbor Implementation
-I am a Grad Student in the Math Department
+Grad Student
 
 Usage:
   This algorithm is implemented using python 2.7.10
@@ -19,7 +20,8 @@ APPROACH:
   function to get the most common class in the closest k neighbors and use this as the guess for the class of the
   test object.  Once I had functionality to classify the test object I began computing the percent correct.  It was
   getting a rather low percent correct at this point so I wrote a function to take a list of "KNNReadable" objects
-  and normalize the data contained in them.  This vastly improved the accuracy of the estimator but there was still room
+  and normalized the data contained in them.  I did normalization based on the data set being used as opposed
+  to using training set values.  This vastly improved the accuracy of the estimator but there was still room
   for improvement.  I considered the case of ties between two classes in the closest k neighbors.  I changed the
   estimator so that if there is a tie, it will take the class of the closest among the objects in the tied classes and
   use that as the guess.  I then wrote a method to take a weighted vote from a list of "KNNReadable" objects
@@ -29,7 +31,9 @@ APPROACH:
 POSSIBLE IMPROVEMENTS:
   The accuracy obtained with this algorithm could potentially benefit from outlier removal in the training data.
   It also may benefit from a more sophisticated measurement of distance such as giving weight to measurements
-  from certain fields (i.e give more weight to a difference in redness).
+  from certain fields (i.e give more weight to a difference in redness).  It could also benefit from ensuring
+  one class isn't over-represented in the data (i.e. there are 500 apples but only 200 oranges) because this
+  could create a bias toward one class.
 
 ACCURACY:
   k=0: 98%

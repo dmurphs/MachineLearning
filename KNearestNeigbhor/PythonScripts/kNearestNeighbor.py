@@ -5,19 +5,22 @@ from collections import Counter
 from operator import itemgetter
 from knnreadable import KNNReadable
 
+# Get 'k' argument from command line and store it
 parser = ArgumentParser()
 program_desc = 'Perform K Nearest Neigbhorhood Algorithm on Fruit Data'
 parser = ArgumentParser(description=program_desc)
 parser.add_argument('k', type=int, help='K-Value for K Nearest Neighbors Algorithm')
 args = parser.parse_args()
-
 k = int(args.k)
 
+# Use pandas read_csv method to store data
 training_df = pd.read_csv('../Data/fruit.csv')
 test_df = pd.read_csv('../Data/testFruit.csv')
 
+# Function to create a 'KNNReadable' object
 get_knn_readable = lambda v: KNNReadable([float(v[0]),float(v[1]),float(v[2]),float(v[3])],v[4])
 
+# Store all records as 'KNNReadable' objects
 training_data = normalize([get_knn_readable(v) for v in training_df.values])
 test_data = normalize([get_knn_readable(v) for v in test_df.values])
 
@@ -28,7 +31,8 @@ else:
     if k > len(training_data):
         print 'Not enough elements in training set for specified k value, setting k to size of training set.'
         k = len(training_data)
-        
+
+    # Iterate through test data and classify
     for test_obj in test_data:
         k = len(training_data) if k == 0 else k
         closest_k = get_closest_k(test_obj,training_data,k)
