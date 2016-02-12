@@ -6,11 +6,11 @@ Grad Student
 
 Usage:
   This algorithm is implemented using python 2.7.10
-  Type 'python PythonScripts/kNearestNeighbor.py -h' from this directory for information about command line arguments.
+  Type 'python kNearestNeighbor.py -h' from the PythonScripts directory for information about command line arguments.
   To install requirements using pip run "pip install -r requirements.txt" from this directory.
 
   Example for k=1:
-    'python PythonScripts/kNearestNeighbor.py 1'
+    'python kNearestNeighbor.py 1' 'Run from PythonScripts Directory'
 
 APPROACH:
   My first step was to read the csv data for test and training using pandas and transform all records into

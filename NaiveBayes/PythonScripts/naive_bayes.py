@@ -27,7 +27,6 @@ class_totals = {c:len(training_df[training_df['Class'] == c]) for c in classes}
 class_attribute_distributions = create_distributions(classes,training_df,metric_cols,nbins)
 
 num_correct = 0
-total = 0
 test_data_rows = [row[1] for row in test_df.iterrows()]
 
 for record in test_data_rows:
@@ -56,9 +55,9 @@ for record in test_data_rows:
         class_total_probs.append((c,prob_product))
     vote = max(class_total_probs,key=itemgetter(1))[0]
 
-    total += 1
     if vote == record.Class:
         num_correct += 1
 
+total = len(test_data_rows)
 print '%i correct out of %i' %(num_correct,total)
 print '%.2f percent correct' % (num_correct/float(total)*100)

@@ -1,5 +1,4 @@
 from math import sqrt
-from statistics import mean,stdev
 from operator import itemgetter
 from collections import Counter
 from knnreadable import KNNReadable
