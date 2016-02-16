@@ -13,51 +13,55 @@ parser.add_argument('nbins', type=int, help='Number of bins for Naive Bayes Algo
 args = parser.parse_args()
 nbins = args.nbins
 
-# Read in data
-training_df = pd.read_csv('../Data/fruit.csv')
-test_df = pd.read_csv('../Data/testFruit.csv')
+if nbins <= 0:
+    print 'Invalid Argument'
 
-#Get some precursor information about data
-classes = set(training_df['Class'])
-metric_cols = [col for col in training_df.columns if training_df[col].dtype == float]
-total_training_records = len(training_df)
-class_totals = {c:len(training_df[training_df['Class'] == c]) for c in classes}
+else:
+    # Read in data
+    training_df = pd.read_csv('../Data/fruit.csv')
+    test_df = pd.read_csv('../Data/testFruit.csv')
 
-# Training stage here, create distributions for each attribute in each class
-class_attribute_distributions = create_distributions(classes,training_df,metric_cols,nbins)
+    #Get some precursor information about data
+    classes = set(training_df['Class'])
+    metric_cols = [col for col in training_df.columns if training_df[col].dtype == float]
+    total_training_records = len(training_df)
+    class_totals = {c:len(training_df[training_df['Class'] == c]) for c in classes}
 
-num_correct = 0
-test_data_rows = [row[1] for row in test_df.iterrows()]
+    # Training stage here, create distributions for each attribute in each class
+    class_attribute_distributions = create_distributions(classes,training_df,metric_cols,nbins)
 
-for record in test_data_rows:
-    #this 'class_probs' variable will be the data cube
-    class_probs = {}
-    for c in classes:
-        class_probs[c] = {}
-        attribute_distributions = class_attribute_distributions[c]
-        for attr in attribute_distributions:
-             distribution = attribute_distributions[attr]
-             record_attr_val = record[attr]
-             record_attr_val_count = get_dist_frequency(distribution,record_attr_val)
-             num_in_attr_bin = get_num_with_attr_val(attr,record_attr_val,class_attribute_distributions)
+    num_correct = 0
+    test_data_rows = [row[1] for row in test_df.iterrows()]
 
-             #use m-estimator to handle 0 probabilities
-             pr_class_given_attr = (record_attr_val_count+1)/float(num_in_attr_bin + 1000)
+    for record in test_data_rows:
+        #this 'class_probs' variable will be the data cube
+        class_probs = {}
+        for c in classes:
+            class_probs[c] = {}
+            attribute_distributions = class_attribute_distributions[c]
+            for attr in attribute_distributions:
+                 distribution = attribute_distributions[attr]
+                 record_attr_val = record[attr]
+                 record_attr_val_count = get_dist_frequency(distribution,record_attr_val)
+                 num_in_attr_bin = get_num_with_attr_val(attr,record_attr_val,class_attribute_distributions)
 
-             class_probs[c][attr] = pr_class_given_attr
+                 #use m-estimator to handle 0 probabilities
+                 pr_class_given_attr = (record_attr_val_count+1)/float(num_in_attr_bin + 1000)
 
-    # perform multiplication on probabilities and pick the highest one as class
-    class_total_probs = []
-    for c in class_probs:
-        attr_probs = class_probs[c]
-        mult = lambda x,y: x*y
-        prob_product = reduce(mult,[attr_probs[p] for p in attr_probs])
-        class_total_probs.append((c,prob_product))
-    vote = max(class_total_probs,key=itemgetter(1))[0]
+                 class_probs[c][attr] = pr_class_given_attr
 
-    if vote == record.Class:
-        num_correct += 1
+        # perform multiplication on probabilities and pick the highest one as class
+        class_total_probs = []
+        for c in class_probs:
+            attr_probs = class_probs[c]
+            mult = lambda x,y: x*y
+            prob_product = reduce(mult,[attr_probs[p] for p in attr_probs])
+            class_total_probs.append((c,prob_product))
+        vote = max(class_total_probs,key=itemgetter(1))[0]
 
-total = len(test_data_rows)
-print '%i correct out of %i' %(num_correct,total)
-print '%.2f percent correct' % (num_correct/float(total)*100)
+        if vote == record.Class:
+            num_correct += 1
+
+    total = len(test_data_rows)
+    print '%i correct out of %i' %(num_correct,total)
+    print '%.2f percent correct' %(num_correct/float(total)*100)
