@@ -10,7 +10,7 @@ Usage:
   To install requirements using pip run "pip install -r requirements.txt" from this directory.
 
   Example for k=1:
-    'python kNearestNeighbor.py 1' 'Run from PythonScripts Directory'
+    Run the following from within PythonScripts directory: 'python kNearestNeighbor.py 1'
 
 APPROACH:
   My first step was to read the csv data for test and training using pandas and transform all records into
