@@ -1,0 +1,8 @@
+Daniel Murphy
+CSCI 547
+Grad Student
+
+I began by reading in the data.  I then wrote a function to calculate the entropy in a given set of data.
+From here I began to work on a function to calculate the information gain from an attribute.
+Once this component was working I began to write the id3 algorithm.  I ended up using a dictionary to label
+the edges in the tree so that attribute values could be followed.

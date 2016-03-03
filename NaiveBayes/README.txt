@@ -26,7 +26,8 @@ APPROACH:
   had a default value of 0 for the frequency.
 
 POSSIBLE IMPROVEMENTS:
-  I could attempt to fit each discrete set of bins into a continuous distribution.
+  I could attempt to fit each discrete set of bins into a continuous distribution.  I also could use a more
+  sophisticated m-estimator.
 
 ACCURACY:
   10 bins: 96%
