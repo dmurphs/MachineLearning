@@ -2,10 +2,996 @@ Daniel Murphy
 CSCI 547
 Grad Student
 
-I began by reading in the data.  I then wrote a function to calculate the entropy in a given set of data.
-From here I began to work on a function to calculate the information gain from an attribute.
-Once this component was working I began to write the id3 algorithm.  I ended up using a dictionary to label
-the edges in the tree so that attribute values could be followed.  After running into issues I changed
-my code to use a dictionary as a tree instead of a custom class.  After making this change my accuracy
-went up to 90% so there was some issues caused by the tree class implementation.  By removing the 3 lowest
-information gain attributes I was able to increase my accuracy to 91.43%.
+USAGE:
+  run 'pip install -r requirements.txt' from this directory to get all requirements.
+  to run classification on test data, run 'python decision_tree.py' from PythonScripts directory.
+
+APPROACH
+  I began by reading in the data.  I then wrote a function to calculate the entropy in a given set of data.
+  From here I began to work on a function to calculate the information gain from an attribute.
+  Once this component was working I began to write the id3 algorithm.  I ended up using a dictionary to label
+  the edges in the tree so that attribute values could be followed.  After running into issues I changed
+  my code to use a dictionary as a tree instead of a custom class.  After making this change my accuracy
+  went up to 90% so there was some issues caused by the tree class implementation.  By removing the 3 lowest
+  information gain attributes I was able to increase my accuracy to 91.43%.  I was able to classify all
+  test instances.
+
+RESULTS
+  64 correct out of 70
+  91.428571 percent correct
+
+ANALYSIS
+  The decision tree algorithm on Rapid Miner achieved an accuracy of 94.76% +/- 2.84% which was slightly higher than
+  my algorithm is currently capable off.  It seems that adding improvement such as post pruning would make my results
+  more comparable to the results of Rapid Miner.
+
+TREE AS STRING
+
+Decision Attribute: Uniformity of Cell Size
+Class Name: None
+Children: [
+  Attribute Value: 0
+  Decision Attribute: None
+  Class Name: 0
+
+  Attribute Value: 1
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 1
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 3
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 5
+    Decision Attribute: Single Epithelial Cell Size
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: Uniformity of Cell Shape
+      Class Name: None
+      Children: [
+        Attribute Value: 0
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 1
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 2
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 3
+        Decision Attribute: None
+        Class Name: 1
+
+        Attribute Value: 4
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 5
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 6
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 7
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 8
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 9
+        Decision Attribute: None
+        Class Name: 0
+
+        Attribute Value: 10
+        Decision Attribute: None
+        Class Name: 0
+
+      ]
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 10
+    Decision Attribute: Bland Chromatin
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+  ]
+
+  Attribute Value: 2
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 1
+    Decision Attribute: Bland Chromatin
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 3
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 10
+    Decision Attribute: None
+    Class Name: 1
+
+  ]
+
+  Attribute Value: 3
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 1
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 2
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 3
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 1
+
+    ]
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 10
+    Decision Attribute: None
+    Class Name: 1
+
+  ]
+
+  Attribute Value: 4
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 1
+    Decision Attribute: Single Epithelial Cell Size
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 1
+
+    ]
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 3
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 0
+
+    ]
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 7
+    Decision Attribute: Uniformity of Cell Shape
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 1
+
+    ]
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 10
+    Decision Attribute: Single Epithelial Cell Size
+    Class Name: None
+    Children: [
+      Attribute Value: 0
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 1
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 2
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 3
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 4
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 5
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 6
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 7
+      Decision Attribute: None
+      Class Name: 0
+
+      Attribute Value: 8
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 9
+      Decision Attribute: None
+      Class Name: 1
+
+      Attribute Value: 10
+      Decision Attribute: None
+      Class Name: 1
+
+    ]
+
+  ]
+
+  Attribute Value: 5
+  Decision Attribute: None
+  Class Name: 1
+
+  Attribute Value: 6
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 1
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 3
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 10
+    Decision Attribute: None
+    Class Name: 1
+
+  ]
+
+  Attribute Value: 7
+  Decision Attribute: Bare Nuclei
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 1
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 3
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 10
+    Decision Attribute: None
+    Class Name: 1
+
+  ]
+
+  Attribute Value: 8
+  Decision Attribute: None
+  Class Name: 1
+
+  Attribute Value: 9
+  Decision Attribute: Single Epithelial Cell Size
+  Class Name: None
+  Children: [
+    Attribute Value: 0
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 1
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 2
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 3
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 4
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 5
+    Decision Attribute: None
+    Class Name: 0
+
+    Attribute Value: 6
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 7
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 8
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 9
+    Decision Attribute: None
+    Class Name: 1
+
+    Attribute Value: 10
+    Decision Attribute: None
+    Class Name: 1
+
+  ]
+
+  Attribute Value: 10
+  Decision Attribute: None
+  Class Name: 1
+
+]

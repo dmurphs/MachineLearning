@@ -59,6 +59,26 @@ def id3(dataset, attributes):
                 root_node['children'][attr_value] = id3(remaining_data,remaining_attributes)
     return root_node
 
+def node_string(node,indentation):
+    '''Give string representation of a node on the tree'''
+    string_rep = ''
+    string_rep += indentation +  'Decision Attribute: ' + str(node['decision_attribute']) + '\n'
+    string_rep += indentation +  'Class Name: ' + str(node['class_name']) + '\n'
+    return string_rep
+
+def print_tree(tree,indent=0):
+    '''Print the tree as a nested string'''
+    indentation = indent * ' '
+    result = node_string(tree,indentation);
+    if tree['children']:
+        result += indentation + 'Children: [\n'
+        for attr_value in tree['children']:
+            child = tree['children'][attr_value]
+            result += indentation + '  ' + 'Attribute Value: ' + str(attr_value) + '\n'
+            result += print_tree(child,indent+2)
+        result += indentation + ']\n'
+    return result + '\n'
+
 def classify_test_case(decision_tree, test_record):
     '''classify a test record using a decision tree'''
     tree = decision_tree
@@ -72,6 +92,7 @@ def classify_test_case(decision_tree, test_record):
     return class_name
 
 def remove_n_lowest_info_gain_cols(n,attributes,dataset):
+    '''Function to remove columns under an information gain threshold, for analysis purposes'''
     info_gains = [(attr,calculate_information_gain(dataset,attr)) for attr in attributes]
 
     hightest_info_gain_attrs = attributes
