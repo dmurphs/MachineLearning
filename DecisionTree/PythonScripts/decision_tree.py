@@ -1,12 +1,11 @@
 import pandas as pd
-from helpers import id3, classify_test_case
-from tree import Tree
+from helpers import id3, classify_test_case, remove_n_lowest_info_gain_cols
 
 training_data = pd.read_csv('../Data/train.csv')
 test_data = pd.read_csv('../Data/test.csv')
 
-#attributes_to_process = get_columns_under_entropy_x(training_data,1)
 attributes_to_process = [c for c in training_data if c != 'class']
+attributes_to_process = remove_n_lowest_info_gain_cols(3,attributes_to_process,training_data)
 
 decision_tree = id3(training_data,attributes_to_process)
 

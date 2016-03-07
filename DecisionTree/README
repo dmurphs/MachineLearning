@@ -5,4 +5,7 @@ Grad Student
 I began by reading in the data.  I then wrote a function to calculate the entropy in a given set of data.
 From here I began to work on a function to calculate the information gain from an attribute.
 Once this component was working I began to write the id3 algorithm.  I ended up using a dictionary to label
-the edges in the tree so that attribute values could be followed.
+the edges in the tree so that attribute values could be followed.  After running into issues I changed
+my code to use a dictionary as a tree instead of a custom class.  After making this change my accuracy
+went up to 90% so there was some issues caused by the tree class implementation.  By removing the 3 lowest
+information gain attributes I was able to increase my accuracy to 91.43%.

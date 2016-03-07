@@ -42,16 +42,8 @@ def id3(dataset, attributes):
         root_node['class_name'] = get_most_common_class(dataset)
 
     else:
-        #col_gains = [(col,calculate_information_gain(dataset,col)) for col in attributes]
-        highest_gain = 0
-        largest_info_gain_attr = ''
-        for col in attributes:
-            gain = calculate_information_gain(dataset,col)
-            if gain > highest_gain:
-                highest_gain = gain
-                largest_info_gain_attr = col
-
-        #largest_info_gain_attr = max(col_gains, key=itemgetter(1))[0]
+        col_gains = [(col,calculate_information_gain(dataset,col)) for col in attributes]
+        largest_info_gain_attr = max(col_gains, key=itemgetter(1))[0]
         root_node['decision_attribute'] = largest_info_gain_attr
 
         for attr_value in range(0,11):
@@ -77,5 +69,15 @@ def classify_test_case(decision_tree, test_record):
         test_decision_attr_val = test_record[decision_attribute]
         tree = children[test_decision_attr_val]
         class_name = tree['class_name']
-        print class_name
     return class_name
+
+def remove_n_lowest_info_gain_cols(n,attributes,dataset):
+    info_gains = [(attr,calculate_information_gain(dataset,attr)) for attr in attributes]
+
+    hightest_info_gain_attrs = attributes
+    for i in range(n):
+        min_attr = min(info_gains,key=itemgetter(1))[0]
+        info_gains = [ig for ig in info_gains if ig[0] != min_attr]
+        hightest_info_gain_attrs = [a for a in hightest_info_gain_attrs if a != min_attr]
+
+    return hightest_info_gain_attrs
