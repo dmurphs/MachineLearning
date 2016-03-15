@@ -8,8 +8,8 @@ def calculate_entropy(attribute_data):
     probabilities = [frequencies[c]/float(len(attribute_data)) for c in frequencies]
     return -sum([p*log(p,2) for p in probabilities])
 
-def hxt(attribute, dataset):
-    '''Calculates H(X,T) for for an attribute X and dataset T'''
+#need to figure out why the following doessn't work correctly
+'''def hxt(attribute, dataset):
     dataset_size = len(dataset)
     attribute_vals = set(dataset[attribute])
     hxt_val = 0
@@ -20,10 +20,21 @@ def hxt(attribute, dataset):
     return hxt_val
 
 def calculate_information_gain(training_dataset, attribute):
-    '''Calculates information gain from a particular attribute'''
     output_data = training_dataset['class']
     info_gain = calculate_entropy(output_data) - hxt(attribute,training_dataset)
-    return info_gain
+    return info_gain'''
+
+def calculate_information_gain(training_dataset, attribute):
+    '''Calculates information gain from a particular attribute'''
+    output_data = training_dataset['class']
+    frequencies = Counter(output_data)
+
+    entr = 0
+    for val in frequencies:
+        val_prob = frequencies[val]/float(len(output_data))
+        new_subset = training_dataset[training_dataset[attribute] == val]['class']
+        entr += val_prob * calculate_entropy(new_subset)
+    return calculate_entropy(output_data) - entr
 
 def get_most_common_class(dataset):
     '''return the most common class in a dataset'''

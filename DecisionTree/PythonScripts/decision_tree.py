@@ -1,5 +1,5 @@
 import pandas as pd
-from helpers import id3, classify_test_case, remove_n_lowest_info_gain_cols, print_tree
+from helpers import id3, classify_test_case, print_tree
 
 #read in the training and test data with pandas read_csv function
 training_data = pd.read_csv('../Data/train.csv')
@@ -7,9 +7,6 @@ test_data = pd.read_csv('../Data/test.csv')
 
 # remove class from attributes to classify on
 attributes_to_process = [c for c in training_data if c != 'class']
-
-#testing with removal of lowest n info gain columns
-attributes_to_process = remove_n_lowest_info_gain_cols(3,attributes_to_process,training_data)
 
 # Create the decision tree to use for classification
 decision_tree = id3(training_data,attributes_to_process)
