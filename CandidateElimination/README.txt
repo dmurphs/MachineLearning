@@ -20,3 +20,6 @@ APPROACH
 
 RESULTS
   99.8% (up to 100%!) accuracy with 10 fold cross validation
+  Confusion Matrix:  {'Enjoy Sport': {'Enjoy Sport': 477, 'Do Not Enjoy': 2}, 'Do Not Enjoy': {'Enjoy Sport': 0, 'Do Not Enjoy': 521}}
+  The structure for the confusion matrix is: {actual_class: {predicted_class: count}}. In the example above there are 477 true positives,
+  2 false negatives, 0 false positives, and 521 true negatives
