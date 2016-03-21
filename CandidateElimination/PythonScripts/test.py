@@ -1,5 +1,5 @@
 from csv import DictReader
-from helpers import generalize_S,prune_G,specialize_G
+from helpers import generalize_S,prune_G,specialize_G,get_all_possible_attr_vals
 
 S = {'Origin': 'Japan', 'Manufacturer': 'Honda', 'Color': 'Blue', 'Year': '1980', 'Type': 'Economy'}
 test_record = {'Origin': 'Japan', 'Manufacturer': 'Toyota', 'Color': 'Blue', 'Year': '1990', 'Type': 'Economy'}
@@ -46,3 +46,5 @@ expected_output = [{'Origin': True, 'Manufacturer': True, 'Color': 'Blue', 'Year
 
 print 'Testing specialize_G again'
 print sorted(specialize_G(test_record,G,S)) == sorted(expected_output)
+
+print get_all_possible_attr_vals()
