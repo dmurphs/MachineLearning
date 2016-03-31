@@ -1,10 +1,11 @@
 from math import factorial as fac
 from operator import itemgetter
+from collections import Counter
 
-def get_dim_measurements(records,dimension):
+def get_dim_measurements(data,dimension):
     '''Get number of positive and negative measurements for dimension'''
-    num_child_pos = len([rec for rec in records if rec[dimension] == 1])
-    num_child_neg = len([rec for rec in records if rec[dimension] == 0])
+    num_child_pos = len(data[data[dimension] == 1])
+    num_child_neg = len(data[data[dimension] == 0])
     return {'positive': num_child_pos, 'negative': num_child_neg}
 
 def random_match_prob(N,r):
@@ -15,7 +16,7 @@ def upward_adjustment(num_pos,num_neg):
 
 def calc_p_dim_prob(data,c_dim,p_dim,dim_val,r):
     '''Gets probability for a given parent dimension'''
-    filtered_data = [rec for rec in data if rec[p_dim] == dim_val]
+    filtered_data = data[data[p_dim] == dim_val]
     matching_children_measurments = get_dim_measurements(filtered_data,c_dim)
     rand_match_prob = random_match_prob(len(filtered_data),r)
     upward_adj = upward_adjustment(matching_children_measurments['positive'],matching_children_measurments['negative'])
@@ -23,7 +24,7 @@ def calc_p_dim_prob(data,c_dim,p_dim,dim_val,r):
 
 def g(data,dimension,parent_dimensions=[]):
     '''Calculates the parent probability'''
-    num_unique_instatiations = 2
+    num_unique_instatiations = len(Counter(data[dimension]))
     r = num_unique_instatiations
     if len(parent_dimensions) == 0:
         dim_measurments = get_dim_measurements(data,dimension)
@@ -35,17 +36,20 @@ def g(data,dimension,parent_dimensions=[]):
         all_products = [p_dim_prob_calc(p_dim,1)*p_dim_prob_calc(p_dim,0) for p_dim in parent_dimensions];
         return reduce(lambda x,y: x*y,all_products)
 
-def k2(data,u):
+def k2(data,u,column_ordering):
     '''Find the most probable parents for a given dimension'''
-    dimensions = [dim for dim in data[0]]
+    dimensions = data.columns
     dim_parents = {}
     for dim in dimensions:
         pi_i = []
-        p_old = g(data,dim)
+        p_old = g(data,dim,pi_i)
         ok = True
         while ok and len(pi_i) < u:
             potential_parents = [p_dim for p_dim in dimensions if p_dim != dim and p_dim not in pi_i]
             new_p_vals = {p_dim: g(data,dim,pi_i + [p_dim]) for p_dim in potential_parents}
+            print dim
+            print p_old
+            print new_p_vals
             p_new,p_new_val = max(new_p_vals.iteritems(),key=itemgetter(1))
             if p_new_val > p_old:
                 p_old = p_new_val
