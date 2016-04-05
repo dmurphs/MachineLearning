@@ -1,4 +1,4 @@
-from math import factorial as fac
+from math import (factorial,log) as (fac,log)
 from operator import itemgetter
 from collections import Counter
 from itertools import permutations
@@ -27,6 +27,7 @@ def g(data,dimension,parent_dimensions=[]):
     '''Calculates the parent probability'''
     num_unique_instatiations = len(Counter(data[dimension]))
     r = num_unique_instatiations
+    log_fact = lambda n: sum([log(i) for i in range(1,n+1)])
     if len(parent_dimensions) == 0:
         dim_measurments = get_dim_measurements(data,dimension)
         rand_match_prob = random_match_prob(len(data),r)
@@ -93,7 +94,18 @@ def get_prob_table(data,dim,p_dims):
 
 def classify_record(data,test_record,network,target_class,possible_values):
     '''Classify a record'''
+    pos_prob = 1.0
+    neg_prob = 1.0
     for dim in network:
         p_dims = network[dim]
-        p_dim_comb = {p_dim: test_record[p_dim] for p_dim in p_dims}
         table = get_prob_table(data,dim,p_dims)
+        test_record_val = test_record[dim]
+        parent_probs = table[test_record_val]
+        parent_vals = {p_dim: test_record[p_dim] for p_dim in p_dims}
+        all_values_match = lambda parent: [p_dim for p_dim in p_dims if parent_vals[p_dim] != parent[p_dim]]
+        matching_parent_prob = [t[0] for t in parent_probs if all_values_match(t[1])][0] if len(parent_probs) > 1 else parent_probs[0][0]
+        pos_prob *= matching_parent_prob
+        neg_prob *= 1-matching_parent_prob
+        print pos_prob,neg_prob
+
+    return 1 if pos_prob > neg_prob else 0
