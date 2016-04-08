@@ -1,4 +1,4 @@
-from helpers import g,k2,find_all_parent_val_combinations
+from helpers import g,k2,find_all_parent_val_combinations,get_count_table
 import pandas as pd
 
 test_records = [
@@ -36,9 +36,6 @@ print 'Testing find all combinations'
 print find_all_parent_val_combinations(len(columns),[0,1])
 print '\n'
 
-'''print 'Testing probability table construction'
+print 'Testing probability table construction'
 print get_count_table(test_records,'x3',['x2'])
 print '\n'
-
-print 'Testing classification of test record'
-print classify_record(test_records,{'x1': 0, 'x2': 0, 'x3': 1},{'x2': ['x1'], 'x3': ['x2'], 'x1': []},'x1',[0,1])'''

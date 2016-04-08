@@ -81,18 +81,6 @@ def find_matching_data(data,dims,value_combination):
         matching_data = get_matching_records(data,dim,value_combination[dim])
     return matching_data
 
-def get_data_table(train_set,network,class_values):
-    all_data = {}
-    for cv in class_values:
-        class_data = get_matching_records(train_set,'Class',cv)
-        all_data[cv] = {}
-        for dim in network:
-            p_dims = network[dim]
-            count_table = get_count_table(class_data,dim,p_dims)
-            all_data[cv][dim] = count_table
-
-    return all_data
-
 def get_count_table(data,dim,p_dims):
     '''Construct dictionary to represent table of counts of dimension values given parent values'''
     dim_counts = Counter(get_dimension_data(data,dim))
