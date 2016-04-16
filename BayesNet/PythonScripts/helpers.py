@@ -80,16 +80,3 @@ def find_matching_data(data,dims,value_combination):
     for dim in dims:
         matching_data = get_matching_records(data,dim,value_combination[dim])
     return matching_data
-
-def get_count_table(data,dim,p_dims):
-    '''Construct dictionary to represent table of counts of dimension values given parent values'''
-    dim_counts = Counter(get_dimension_data(data,dim))
-    possible_values = dim_counts.keys()
-    get_count = lambda data,dim_val: len(get_matching_records(data,dim,dim_val))
-    if len(p_dims) == 0:
-        return {dim_val: [(get_count(data,dim_val),{})] for dim_val in possible_values}
-    parent_val_combs = find_all_parent_val_combinations(len(p_dims),possible_values)
-    get_mapped_comb = lambda comb: {p_dims[i]: comb[i] for i in range(len(p_dims))}
-    mapped_combs = [get_mapped_comb(comb) for comb in parent_val_combs]
-    get_all_counts = lambda dim_val: [(get_count(find_matching_data(data,p_dims,parent_comb),dim_val),parent_comb) for parent_comb in mapped_combs]
-    return {dim_val: get_all_counts(dim_val) for dim_val in possible_values}

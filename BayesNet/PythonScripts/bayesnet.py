@@ -1,4 +1,4 @@
-from helpers import k2,get_matching_records,get_count_table,find_matching_data
+from helpers import k2,get_matching_records,find_matching_data
 from random import randint,shuffle
 from csv import DictReader
 from operator import itemgetter
@@ -36,17 +36,23 @@ def find_class_prob(record,train_set,network,target_dim,class_val,dims):
         p_vals = {d: record[d] for d in p_dims}
         matching_parents = find_matching_data(train_set,p_dims,p_vals)
         matching_class_and_parents = [rec for rec in matching_parents if rec[target_dim] == class_val and rec[dim] == record[dim]]
-        probs.append(len(matching_class_and_parents)/float(len(matching_parents)))
+        prob = (1 + len(matching_class_and_parents))/float(1000 + len(matching_parents))
+        probs.append(prob)
     return reduce(lambda x,y: x*y,probs)
 
 fold_accuracies = {}
 for i in range(k):
+    cf_lookup = {1: 'positive', 0: 'negative'}
+    confustion_matrix = {'positive': {'positive': 0, 'negative': 0}, 'negative': {'positive': 0, 'negative': 0}}
+
     test_start_index,test_end_index = i*subset_size, i*subset_size + subset_size
     test_set = [bootstrapped_data[j] for j in range(test_start_index,test_end_index)]
     head_indices = [j for j in range(0,test_start_index)]
     tail_indices = [j for j in range(test_end_index,len(bootstrapped_data)-1)]
     train_set = [bootstrapped_data[j] for j in head_indices + tail_indices]
-    network = k2(data,3,classification_dims)
+    network = k2(train_set,3,classification_dims)
+    for node in network:
+        print 'Node %s has parents %s' %(node,str(network[node]))
     correct = 0
     total = 0
     for record in test_set:
@@ -56,11 +62,16 @@ for i in range(k):
             class_probs[class_value] = class_prob
         guess = max(class_probs.iteritems(),key=itemgetter(1))[0]
         total += 1
-        if guess == record['Class']:
+        actual = record['Class']
+        if guess == actual:
             correct += 1
-    fold_accuracies[i] = correct/float(total)
+        confustion_matrix[cf_lookup[actual]][cf_lookup[guess]] += 1
+    fold_acc = correct/float(total)
+    fold_accuracies[i] = fold_acc
+    print 'Fold number %i had %f percent accuracy' %(i+1,fold_acc*100)
+    print 'Confusion Matrix: ', confustion_matrix
+    print '\n'
 
-print fold_accuracies
 all_accuracies = [fold_accuracies[i] for i in fold_accuracies]
 average = sum(all_accuracies)/float(len(all_accuracies))
-print average
+print 'Average Accuracy: %f percent' %(average*100)
