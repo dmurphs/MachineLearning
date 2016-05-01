@@ -1,55 +1,49 @@
 import numpy as np
+import pandas as pd
 
-# Define the logistic function
-def logistic(z):
+def sigmoid(z):
+    '''Sigmoid function for neural network transfers'''
     return 1 / (1 + np.exp(-z))
 
-# Define the softmax function
-def softmax(z):
-    return np.exp(z) / np.sum(np.exp(z), axis=1, keepdims=True)
+def neural_net(inputs,hidden_weights,hidden_bias,output_weights,output_bias):
+    '''Returns the activations for the hidden layer and ouput layer in neural network'''
+    hidden_activations = sigmoid(np.dot(inputs,hidden_weights) + hidden_bias)
+    output_activations = sigmoid(np.dot(hidden_activations,output_weights) + output_bias)
+    return hidden_activations,output_activations
 
-# Function to compute the hidden activations
-def hidden_activations(X, Wh, bh):
-    return logistic(X.dot(Wh) + bh)
+def backpropogate(inputs, target, hidden_weights, hidden_bias, output_weights, output_bias):
+    '''Returns gradients for weights and biases'''
+    hidden_activations,output_activations = neural_net(inputs,hidden_weights,hidden_bias,output_weights,output_bias)
 
-# Define output layer feedforward
-def output_activations(H, Wo, bo):
-    return softmax(H.dot(Wo) + bo)
+    output_error = output_activations - target
+    output_weight_gradient = np.dot(hidden_activations.T,output_error)
+    output_bias_gradient = np.sum(output_error, axis=0, keepdims=True)
 
-# Define the neural network function
-def nn(X, Wh, bh, Wo, bo):
-    return output_activations(hidden_activations(X, Wh, bh), Wo, bo)
+    hidden_error = np.multiply(np.multiply(hidden_activations,(1 - hidden_activations)), output_error.dot(output_weights.T))
+    hidden_weight_gradient = np.dot(inputs.T,hidden_error)
+    hidden_bias_gradient = np.sum(hidden_error, axis=0, keepdims=True)
 
-# Define the neural network prediction function that only returns
-#  1 or 0 depending on the predicted class
-def nn_predict(X, Wh, bh, Wo, bo):
-    return np.around(nn(X, Wh, bh, Wo, bo))
+    return [hidden_weight_gradient, hidden_bias_gradient, output_weight_gradient, output_bias_gradient]
 
-# Define the cost function
-def cost(Y, T):
-    return - np.multiply(T, np.log(Y)).sum()
+def get_classification_accuracy(output,target):
+    '''Return number of correct classifications and total number of classifications for accuracy analysis'''
+    total = 0
+    correct = 0
 
-# Define the error function at the output
-def error_output(Y, T):
-    return Y - T
+    for i in range(len(output)):
+        total += 1
+        prediction = output[i]
+        targ = target[i]
+        equal = [k for k in range(len(prediction)) if prediction[k] != targ[k]]
+        if len(equal) == 0:
+            correct += 1
 
-# Define the gradient function for the weight parameters at the output layer
-def gradient_weight_out(H, Eo):
-    return  H.T.dot(Eo)
+    return correct,total
 
-# Define the gradient function for the bias parameters at the output layer
-def gradient_bias_out(Eo):
-    return  np.sum(Eo, axis=0, keepdims=True)
+def get_class(l):
+    pred_index = 0
+    for i in range(len(l)):
+        if l[i] == 1:
+            pred_index = i
 
-# Define the error function at the hidden layer
-def error_hidden(H, Wo, Eo):
-    # H * (1-H) * (E . Wo^T)
-    return np.multiply(np.multiply(H,(1 - H)), Eo.dot(Wo.T))
-
-# Define the gradient function for the weight parameters at the hidden layer
-def gradient_weight_hidden(X, Eh):
-    return X.T.dot(Eh)
-
-# Define the gradient function for the bias parameters at the output layer
-def gradient_bias_hidden(Eh):
-    return  np.sum(Eh, axis=0, keepdims=True)
+    return pred_index
