@@ -1,49 +1,54 @@
 import numpy as np
-import pandas as pd
 
 def sigmoid(z):
     '''Sigmoid function for neural network transfers'''
     return 1 / (1 + np.exp(-z))
 
-def neural_net(inputs,hidden_weights,hidden_bias,output_weights,output_bias):
-    '''Returns the activations for the hidden layer and ouput layer in neural network'''
-    hidden_activations = sigmoid(np.dot(inputs,hidden_weights) + hidden_bias)
-    output_activations = sigmoid(np.dot(hidden_activations,output_weights) + output_bias)
-    return hidden_activations,output_activations
+def neural_net(inputs,weights,biases):
+    '''Return activations for each layer in neural net'''
+    activations = [inputs]
+    for i in range(len(weights)):
+        activations.append(sigmoid(np.dot(activations[i],weights[i]) + biases[i]))
 
-def backpropogate(inputs, target, hidden_weights, hidden_bias, output_weights, output_bias):
+    return activations[1:]
+
+def error(activations,previous_error,previous_weights):
+    '''Calculate activation errors'''
+    return np.multiply(np.multiply(activations,(1 - activations)), previous_error.dot(previous_weights.T))
+
+def gradient(previous_activations,layer_error):
+    '''Get gradient for layer based on previous activations and error'''
+    return np.dot(previous_activations.T,layer_error)
+
+def backpropogate(inputs, target, weights, biases):
     '''Returns gradients for weights and biases'''
-    hidden_activations,output_activations = neural_net(inputs,hidden_weights,hidden_bias,output_weights,output_bias)
+    activations = neural_net(inputs,weights,biases)
 
-    output_error = output_activations - target
-    output_weight_gradient = np.dot(hidden_activations.T,output_error)
-    output_bias_gradient = np.sum(output_error, axis=0, keepdims=True)
+    output_error = activations[-1] - target
 
-    hidden_error = np.multiply(np.multiply(hidden_activations,(1 - hidden_activations)), output_error.dot(output_weights.T))
-    hidden_weight_gradient = np.dot(inputs.T,hidden_error)
-    hidden_bias_gradient = np.sum(hidden_error, axis=0, keepdims=True)
+    #prepending to lists so orders match `activations` order
+    errors = [output_error]
+    output_previous = activations[-2]
+    weight_gradients = [gradient(output_previous,output_error)]
+    bias_gradients = [np.sum(output_error, axis=0, keepdims=True)]
+    for i in range(len(activations)-1)[::-1]:
+        activation_error = error(activations[i],errors[0],weights[i+1])
+        errors.insert(0,activation_error)
+        if i == 0:
+            wg = gradient(inputs,errors[0])
+            bg = np.sum(errors[0], axis=0, keepdims=True)
+        else:
+            wg = gradient(activations[i-1],errors[0])
+            bg = np.sum(errors[0], axis=0, keepdims=True)
+        weight_gradients.insert(0,wg)
+        bias_gradients.insert(0,bg)
 
-    return [hidden_weight_gradient, hidden_bias_gradient, output_weight_gradient, output_bias_gradient]
+    return weight_gradients,bias_gradients
 
-def get_classification_accuracy(output,target):
-    '''Return number of correct classifications and total number of classifications for accuracy analysis'''
-    total = 0
-    correct = 0
+def get_predictions(output):
+    '''Get class predictions from network output'''
+    return [np.argmax(row) + 1 for row in output]
 
-    for i in range(len(output)):
-        total += 1
-        prediction = output[i]
-        targ = target[i]
-        equal = [k for k in range(len(prediction)) if prediction[k] != targ[k]]
-        if len(equal) == 0:
-            correct += 1
-
-    return correct,total
-
-def get_class(l):
-    pred_index = 0
-    for i in range(len(l)):
-        if l[i] == 1:
-            pred_index = i
-
-    return pred_index
+def get_target_classes(target):
+    '''Get target classes'''
+    return [np.argmax(row) + 1 for row in target]
