@@ -6,7 +6,7 @@ from operator import itemgetter
 def get_random_bit_vector():
     return np.random.choice([True,False],size=(num_items,))
 
-def get_fitness(sequence,data):
+def get_fitness(sequence,data,max_weight):
     positive_indices = [i for i in range(len(sequence)) if sequence[i]]
     positive_values = data.iloc[positive_indices]
     total_weight = positive_values['Weight'].sum()
@@ -18,10 +18,14 @@ def get_fitness(sequence,data):
         scale = 1/float(amount_over_weight + 1)
         return max_weight*scale
 
-def get_n_most_fit_indices(n,fitnesses):
-    fitnesses_with_indices = [(i,fitnesses[i]) for i in range(len(fitnesses))]
-    top_n = sorted(fitnesses_with_indices,key=itemgetter(1),reverse=True)[:n]
-    return [i for i,seq in top_n]
+def split_n_most_fit(n,pop_with_fitness):
+    sorted_pop_with_fitness = sorted(pop_with_fitness,key=itemgetter(1),reverse=True)
+    print sorted_pop_with_fitness
+    n_most_fit = sorted_pop_with_fitness[:n]
+    candidates = sorted_pop_with_fitness[n:]
+    print n_most_fit
+    print candidates
+    return n_most_fit,candidates
 
 def roulette_selection(selection_candidates):
     prob = random.random()
@@ -32,15 +36,18 @@ def roulette_selection(selection_candidates):
     else:
         return selection_candidates[0][0]
 
+def get_survivors(population,item_data,top_n_proportion,max_weight):
+    num_most_fit = int(len(population)*top_n_proportion)
+    pop_with_fitness = [(seq,get_fitness(seq,item_data,max_weight)) for seq in population]
 
 item_data = pd.read_csv('../Data/items.csv')
 num_items = len(item_data)
 population_size = 200
 max_weight = 200
-num_gen_parents = 20
-n_most_fit_to_keep = 20
-n_survivors_per_gen = 100
+top_n_proportion = 0.1
 
 population = [get_random_bit_vector() for i in range(population_size)]
+pop_with_fitness = [(seq,get_fitness(seq,item_data,max_weight)) for seq in population]
+split_n_most_fit(10,pop_with_fitness)
 
 survivors = get_survivors(population,item_data,n_most_fit_to_keep,n_survivors_per_gen)
