@@ -3,7 +3,7 @@ CSCI 547
 Grad Student
 
 USAGE:
-  to run classification on test data, run 'python cross_validation.py' from PythonScripts directory.
+  to run classification on test data, run 'python candidate_elim.py' from PythonScripts directory.
 
 VERSION SPACE DETAILS:
   The maximally general and maximally specific hypotheses are represented by boolean values True and False respectively

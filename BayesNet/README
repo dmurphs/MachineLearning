@@ -1,0 +1,203 @@
+Daniel Murphy
+Graduate Student
+Bayes Network Project
+
+HOW TO RUN:
+  from the PythonScripts directory, run `python bayesnet.py`
+
+APPROACH:
+  I began by writing some helper functions for retrieving information from the dictionaries used to hold the dataset.  I then began writing the g function.  I used some test data
+  from the example in the power point slides in order to test that my functions were working correctly.  Once I had the g function working I began writing the K2 algorithm.
+  I used the same test set for this function.  Once I had functionality in place to create the network, I wrote a recursive function to return a list of all possible combinations of
+  parent values for the classifier portion to use and a helper function to find the matching parent combination.  I then wrote the a function to classify a test record.  Once all of this
+  functionality was in place I wrote the 10 fold cross validation component.
+
+EXTRA CREDIT:
+  I was able to complete both extra credit portions. I had a similar drop in accuracy (from .993 to about .91) as mentioned in the project
+  description after bootstrapping the data.  When I implemented functionality to try several different orderings and pick the network with the highest score,
+  the accuracy did not significantly improve unless I tried every possible permutation of the columns. Note that there are variables `try_random_orderings`  and
+  `num_k2_random_orderings` on line 31 and 32 in bayesnet.py that allows you to try different orderings and set how many random orderings to try for the belief network.
+  this is turned off at the moment but can employ this functionality by settings `try_random_orderings` to `True`.
+
+RESULTS (includes sample output for each fold, confustion matrix, and average accuracy):
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 1 had 89.898990 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 108, 'negative': 0}, 'negative': {'positive': 20, 'negative': 70}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 2 had 91.919192 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 94, 'negative': 0}, 'negative': {'positive': 16, 'negative': 88}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 3 had 89.898990 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 107, 'negative': 0}, 'negative': {'positive': 20, 'negative': 71}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 4 had 90.909091 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 105, 'negative': 0}, 'negative': {'positive': 18, 'negative': 75}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 5 had 92.929293 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 100, 'negative': 0}, 'negative': {'positive': 14, 'negative': 84}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 6 had 91.919192 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 104, 'negative': 0}, 'negative': {'positive': 16, 'negative': 78}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 7 had 90.909091 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 89, 'negative': 0}, 'negative': {'positive': 18, 'negative': 91}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 8 had 88.888889 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 87, 'negative': 0}, 'negative': {'positive': 22, 'negative': 89}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 9 had 93.434343 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 94, 'negative': 0}, 'negative': {'positive': 13, 'negative': 91}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['BusTourGroup']
+  Node Storms has parents []
+  Node BusTourGroup has parents ['Storms']
+  Node Lightning has parents ['Storms']
+  Fold number 10 had 89.393939 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 102, 'negative': 0}, 'negative': {'positive': 21, 'negative': 75}}
+
+RESULTS AFTER EXTRA CREDIT:
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 1 had 94.444444 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 94, 'negative': 3}, 'negative': {'positive': 8, 'negative': 93}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 2 had 94.949495 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 100, 'negative': 4}, 'negative': {'positive': 6, 'negative': 88}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 3 had 90.404040 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 88, 'negative': 6}, 'negative': {'positive': 13, 'negative': 91}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 4 had 94.949495 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 105, 'negative': 5}, 'negative': {'positive': 5, 'negative': 83}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 5 had 95.959596 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 88, 'negative': 2}, 'negative': {'positive': 6, 'negative': 102}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents []
+  Fold number 6 had 93.434343 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 93, 'negative': 6}, 'negative': {'positive': 7, 'negative': 92}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 7 had 93.434343 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 86, 'negative': 6}, 'negative': {'positive': 7, 'negative': 99}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 8 had 91.414141 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 105, 'negative': 4}, 'negative': {'positive': 13, 'negative': 76}}
+
+
+  Node Thunder has parents []
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Thunder']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents ['Thunder']
+  Fold number 9 had 93.434343 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 87, 'negative': 6}, 'negative': {'positive': 7, 'negative': 98}}
+
+
+  Node Thunder has parents ['Lightning']
+  Node Campfire has parents ['Storms']
+  Node Storms has parents ['Lightning']
+  Node BusTourGroup has parents ['Campfire']
+  Node Lightning has parents []
+  Fold number 10 had 95.454545 percent accuracy
+  Confusion Matrix:  {'positive': {'positive': 98, 'negative': 4}, 'negative': {'positive': 5, 'negative': 91}}
+
+
+  Average Accuracy: 93.787879 percent

@@ -41,6 +41,7 @@ else:
             attribute_distributions = class_attribute_distributions[c]
             for attr in attribute_distributions:
                  distribution = attribute_distributions[attr]
+                 print distribution
                  record_attr_val = record[attr]
                  record_attr_val_count = get_dist_frequency(distribution,record_attr_val)
                  num_in_attr_bin = get_num_with_attr_val(attr,record_attr_val,class_attribute_distributions)

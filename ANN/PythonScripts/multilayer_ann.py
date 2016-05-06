@@ -8,7 +8,7 @@ from helpers import *
 classification_field = 'Species'
 data_file_path = '../Data/iris.csv'
 
-configuration = [4,4,3]
+configuration = [4,5,4,3]
 num_epochs = 300
 save_network = False
 #---------------------------------

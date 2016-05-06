@@ -157,9 +157,11 @@ def k_fold_cross_validation(training_data,k,class_label_col):
     negative = 'Do Not Enjoy'
     for i in range(k):
         test_data_start_index,test_data_end_index = i*subset_size, i*subset_size + subset_size
-        is_in_fold_range = lambda i: i >= test_data_start_index and i < test_data_end_index
-        fold_test_data = [training_data[i] for i in range(len(training_data)) if is_in_fold_range(i)]
-        fold_training_data = [training_data[i] for i in range(len(training_data)) if not is_in_fold_range(i)]
+        fold_test_data = [training_data[i] for i in range(test_data_start_index,test_data_end_index)]
+        training_indices1 = range(0,test_data_start_index)
+        training_indices2 = range(test_data_end_index,len(training_data)- 1)
+        training_indices = training_indices1 + training_indices2
+        fold_training_data = [training_data[i] for i in training_indices]
         all_hypotheses = candidate_elimination_learner(fold_training_data,class_label_col,positive,negative)
         classification_results = classify_test_data(fold_test_data,all_hypotheses,class_label_col,positive,negative)
         fold_accuracy = classification_results[0]
