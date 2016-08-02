@@ -1,0 +1,93 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.BayesNet -D -Q weka.classifiers.bayes.net.search.local.K2 -- -P 1 -S BAYES -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5
+Relation:     agaricus-lepiota
+Instances:    8124
+Attributes:   23
+              class
+              cap-shape
+              cap-surface
+              cap-color
+              bruises
+              odor
+              gill-attachment
+              gill-spacing
+              gill-size
+              gill-color
+              stalk-shape
+              stalk-root
+              stalk-surface-above-ring
+              stalk-surface-below-ring
+              stalk-color-above-ring
+              stalk-color-below-ring
+              veil-type
+              veil-color
+              ring-number
+              ring-type
+              spore-print-color
+              population
+              habitat
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Bayes Network Classifier
+not using ADTree
+#attributes=23 #classindex=0
+Network structure (nodes followed by parents)
+class(2): 
+cap-shape(6): class 
+cap-surface(4): class 
+cap-color(10): class 
+bruises(2): class 
+odor(9): class 
+gill-attachment(2): class 
+gill-spacing(2): class 
+gill-size(2): class 
+gill-color(12): class 
+stalk-shape(2): class 
+stalk-root(4): class 
+stalk-surface-above-ring(4): class 
+stalk-surface-below-ring(4): class 
+stalk-color-above-ring(9): class 
+stalk-color-below-ring(9): class 
+veil-type(1): class 
+veil-color(4): class 
+ring-number(3): class 
+ring-type(5): class 
+spore-print-color(9): class 
+population(6): class 
+habitat(7): class 
+LogScore Bayes: -156369.77453454662
+LogScore BDeu: -156830.6439808834
+LogScore MDL: -156952.06770464164
+LogScore ENTROPY: -156101.3240909465
+LogScore AIC: -156290.3240909465
+
+
+Time taken to build model: 0.28 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances        7817               96.2211 %
+Incorrectly Classified Instances       307                3.7789 %
+Kappa statistic                          0.9242
+Mean absolute error                      0.0378
+Root mean squared error                  0.1639
+Relative absolute error                  7.5657 %
+Root relative squared error             32.8082 %
+Total Number of Instances             8124     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.929    0.007    0.992      0.929    0.960      0.926    0.998     0.998     p
+                 0.993    0.071    0.938      0.993    0.965      0.926    0.998     0.999     e
+Weighted Avg.    0.962    0.040    0.964      0.962    0.962      0.926    0.998     0.998     
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3638  278 |    a = p
+   29 4179 |    b = e
